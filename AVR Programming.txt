@@ -1,0 +1,25 @@
+#include <SPIMemory.h>
+#include <SPIFlash.h>
+
+SPIFlash flash; // 'csPin' is the Chip Select pin for the flash module.  cs핀 연결 확인
+void setup() {
+	Serial.begin(115200); //Boudrate 설정 
+		if (!flash.begin()){
+			flash.error(VERVOSE);
+		}// 예외처리
+	int a=0;
+	int cnt=1;
+	for (a=0; a<0x200000; a++){
+		Serial.print(flash.readByte(a), Hex);
+		if(cnt==50){
+			Serial.print('\n');
+			cnt=0;
+		}
+		else{
+			Serial.print('');
+		}
+		cnt++;
+		}
+	void loop(){
+	}
+}
